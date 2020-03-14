@@ -9,5 +9,10 @@ The table is scrollable
 
 The first / top card has an image.  So does the 2nd card.
 
-Both cards have editor buttons
+Both cards have editor buttons.  The editor buttons pop open a fake editor.
 
+Install and Run
+
+npm install
+
+npm start

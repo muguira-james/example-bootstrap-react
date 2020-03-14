@@ -1,98 +1,79 @@
 import React from 'react';
-// import logo from './logo.svg';
-import logo_cucumber from './Cucumber.png'
-import logo_hive from './Hive.png'
-import './App.css';
+import logo_cucumber from './assets/Cucumber.png'
+import logo_hive from './assets/Hive.png'
+
+
+
+import CreateCard from './CreateCard'
+
+
 import {
-  Card, CardImg, CardText, CardBody,
-  CardTitle, CardSubtitle, Button,
-  Table,
-  UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem,
-  Container, Row, Col
+
+    Table,
+    Button, Modal, ModalHeader, ModalBody, ModalFooter
 } from 'reactstrap';
 
+const store = [
+    {
+        "title" : "Weather Report", 
+        "description": "18:00 Low visibility, heavy overcast with 30% chance of persipitation. Humidity 66%",
+        "media": logo_cucumber
+    },
+    {
+        "title": "Obstacles & Fields of Fire",
+        "description": "",
+        "media": logo_hive,
+    }
+]
+
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { isToggleOn: true };
+    constructor(props) {
+        super(props)
+        this.state = {
+            modal: false
+        }
+    }
+    
 
-    // This binding is necessary to make `this` work in the callback
-    this.handleClick = this.handleClick.bind(this);
-  }
-  handleClick() {
-    console.log("pressed")
-    document.getElementById("name").innerHTML = "Opened the editor"
-  }
-  handleDrop() {
+    toggle = () => { this.setState({ modal: !this.state.modal }) }
 
-    document.getElementById("drop").innerHTML = "open the editor"
-  }
-  render() {
-    return (
-      <div >
+    render() {
+        return (
+            <div >
+                <Modal isOpen={this.state.modal} toggle={this.toggle} >
+                    <ModalHeader toggle={this.toggle}>Modal title</ModalHeader>
+                    <ModalBody>
+                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+            </ModalBody>
+                    <ModalFooter>
+                        <Button color="primary" onClick={this.toggle}>Do Something</Button>{' '}
+                        <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+                    </ModalFooter>
+                </Modal>
+                <Table>
+                    <tbody>
+                        {
+                            CreateCard(
+                                store[0],
+                                this.toggle)
+                        }
 
+                    </tbody>
+                    <tbody>
+                        {
+                            CreateCard(
+                                store[1],
+                                this.toggle
+                            )
+                        }
+                    </tbody>
+                </Table>
 
-        <p>
+            </div>
+        );
 
-          <Table>
-            <tbody>
-              <Card>
-                <Container>
-                  <Row>
-                    <Col xs="6">
-                      <CardBody>
-                        <CardTitle>Weather Report</CardTitle>
-
-                        <CardText>18:00 Low Visibility, heavy overcast with 30% chance of percipitation. Humudity 66%</CardText>
-                        <Button id="name" onClick={this.handleClick} >Edit</Button>
-                      </CardBody>
-                    </Col>
-                    <Col xs="6">
-                      <CardImg top width="100%" src={logo_cucumber} width="120" height="90" alt="Card image cap" />
-                    </Col>
-                  </Row>
-                </Container>
-
-
-              </Card>
-            </tbody>
-            <Card>
-              <Container>
-                <Row>
-                  <Col xs="6">
-
-                    <CardBody>
-                      <CardTitle>Obstacles & Fields of Fire</CardTitle>
-
-
-                      <UncontrolledDropdown>
-                        <DropdownToggle id="drop" caret>
-                          Edit card
-                        </DropdownToggle>
-                        <DropdownMenu>
-                          <DropdownItem onClick={this.handleDrop}>Edit</DropdownItem>
-                        </DropdownMenu>
-                      </UncontrolledDropdown>
-                    </CardBody>
-
-                  </Col>
-                  <Col xs="6">
-                    <CardImg top width="100%" src={logo_hive} width="120" height="90" alt="Card image cap" />
-
-                  </Col>
-
-                </Row>
-              </Container>
-
-            </Card>
-          </Table>
-
-        </p>
-
-
-      </div>
-    );
-  }
+    }
 }
-
 export default App;
+
+
