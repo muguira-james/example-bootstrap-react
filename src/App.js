@@ -13,18 +13,53 @@ import {
     Button, Modal, ModalHeader, ModalBody, ModalFooter
 } from 'reactstrap';
 
-const store = [
-    {
-        "title" : "Weather Report", 
-        "description": "18:00 Low visibility, heavy overcast with 30% chance of persipitation. Humidity 66%",
-        "media": logo_cucumber
-    },
-    {
-        "title": "Obstacles & Fields of Fire",
-        "description": "",
-        "media": logo_hive,
-    }
-]
+const misSpec = {
+    MMFnode: [
+        {
+            "misison-spec": [
+                { "personnel": null },
+                { "title": "" },
+                { "description": "" },
+                { "icon": "" },
+                { "tags": "" },
+                { "mission-scope": "" }
+            ]
+        },
+        {
+            "situation": [
+                {
+                    "environment": [
+                        {
+                            "title": "Weather Report",
+                            "description": "18:00 Low visibility, heavy overcast with 30% chance of persipitation. Humidity 66%",
+                            "media": logo_cucumber
+                        },
+                        {
+                            "title": "Obstacles & Fields of Fire",
+                            "description": "",
+                            "media": logo_hive,
+                        }
+                    ]
+                },
+                {
+                    "Forces": [
+                        {
+                            "blue": "",
+                            "red": ""
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "mission-threads": []
+        },
+        {
+            "personnel": []
+        }
+    ]
+}
+
 
 class App extends React.Component {
     constructor(props) {
@@ -33,11 +68,12 @@ class App extends React.Component {
             modal: false
         }
     }
-    
+
 
     toggle = () => { this.setState({ modal: !this.state.modal }) }
 
     render() {
+        // console.log("--->", misSpec.MMFnode[1].situation[0].environment)
         return (
             <div >
                 <Modal isOpen={this.state.modal} toggle={this.toggle} >
@@ -51,27 +87,12 @@ class App extends React.Component {
                     </ModalFooter>
                 </Modal>
                 <Table>
-                    <tbody>
-                        {
-                            CreateCard(
-                                store[0],
-                                this.toggle)
-                        }
-
-                    </tbody>
-                    <tbody>
-                        {
-                            CreateCard(
-                                store[1],
-                                this.toggle
-                            )
-                        }
-                    </tbody>
+                    {
+                        misSpec.MMFnode[1].situation[0].environment.map(item => CreateCard(item, this.toggle) )
+                    }                   
                 </Table>
-
             </div>
         );
-
     }
 }
 export default App;

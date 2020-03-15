@@ -10,8 +10,9 @@ import {
 
 
 const CreateCard = (store, button) => {
-    
+    // console.log("store->", store)s
     return (
+        <tbody>
         <Card>
             <Container>
                 <Row>
@@ -29,6 +30,7 @@ const CreateCard = (store, button) => {
                 </Row>
             </Container>
         </Card>
+        </tbody>
     )
 }
 
